@@ -1,8 +1,0 @@
-com/firefly/core/lending/factoring/web/controllers/invoice/v1/FactoringInvoiceController.class
-com/firefly/core/lending/factoring/web/FactoringApplication.class
-com/firefly/core/lending/factoring/web/controllers/fee/v1/FactoringFeeController.class
-com/firefly/core/lending/factoring/web/controllers/agreement/v1/FactoringAgreementController.class
-com/firefly/core/lending/factoring/web/controllers/debtor/v1/FactoringDebtorController.class
-com/firefly/core/lending/factoring/web/controllers/advance/v1/FactoringAdvanceController.class
-com/firefly/core/lending/factoring/web/controllers/invoice/v1/FactoringInvoiceSettlementController.class
-com/firefly/core/lending/factoring/web/controllers/invoice/v1/FactoringInvoiceStatusHistoryController.class
