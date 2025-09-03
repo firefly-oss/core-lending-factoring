@@ -18,6 +18,7 @@
         <module>core-lending-factoring-interfaces</module>
         <module>core-lending-factoring-models</module>
         <module>core-lending-factoring-web</module>
+        <module>core-lending-factoring-sdk</module>
     </modules>
 
     <properties>
@@ -37,6 +38,11 @@
             <dependency>
                 <groupId>com.firefly</groupId>
                 <artifactId>core-lending-factoring-models</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.firefly</groupId>
+                <artifactId>core-lending-factoring-sdk</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

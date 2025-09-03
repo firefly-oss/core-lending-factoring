@@ -1,0 +1,2596 @@
+openapi: 3.0.1
+info:
+  title: core-lending-factoring
+  description: Factoring Core Application
+  contact:
+    name: Firefly Software Solutions Inc
+    email: dev@getfirefly.io
+  version: 1.0.0
+servers:
+  - url: http://core.catalis.vc/factoring
+    description: Development Environment
+  - url: /
+    description: Local Development Environment
+tags:
+  - name: FactoringInvoiceStatusHistory
+    description: Status history of factoring invoices
+  - name: FactoringInvoiceSettlement
+    description: Settlements for a factoring invoice
+  - name: FactoringDebtor
+    description: Debtor operations under a factoring agreement
+  - name: FactoringAdvance
+    description: Advance records for an invoice under a factoring agreement
+  - name: FactoringInvoice
+    description: Invoice operations under a factoring agreement
+  - name: FactoringAgreement
+    description: Operations on factoring agreements
+  - name: FactoringFee
+    description: Fee configuration under a factoring agreement
+paths:
+  /api/v1/factoring-agreements/{factoringAgreementId}:
+    get:
+      tags:
+        - FactoringAgreement
+      summary: Get a factoring agreement by ID
+      operationId: getById
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAgreementDTO'
+    put:
+      tags:
+        - FactoringAgreement
+      summary: Update a factoring agreement
+      operationId: update
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAgreementDTO'
+    delete:
+      tags:
+        - FactoringAgreement
+      summary: Delete a factoring agreement
+      operationId: delete
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}:
+    get:
+      tags:
+        - FactoringInvoice
+      summary: Get an invoice by ID
+      operationId: getById_1
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceDTO'
+    put:
+      tags:
+        - FactoringInvoice
+      summary: Update an invoice record
+      operationId: update_1
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceDTO'
+    delete:
+      tags:
+        - FactoringInvoice
+      summary: Delete an invoice record
+      operationId: delete_1
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/status-history/{factoringInvoiceStatusHistoryId}:
+    get:
+      tags:
+        - FactoringInvoiceStatusHistory
+      summary: Get an invoice status history entry by ID
+      operationId: getById_2
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+    put:
+      tags:
+        - FactoringInvoiceStatusHistory
+      summary: Update an invoice status history entry
+      operationId: update_2
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+    delete:
+      tags:
+        - FactoringInvoiceStatusHistory
+      summary: Delete an invoice status history entry
+      operationId: delete_2
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceStatusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/settlements/{factoringInvoiceSettlementId}:
+    get:
+      tags:
+        - FactoringInvoiceSettlement
+      summary: Get a settlement record by ID
+      operationId: getById_3
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+    put:
+      tags:
+        - FactoringInvoiceSettlement
+      summary: Update a settlement record
+      operationId: update_3
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+    delete:
+      tags:
+        - FactoringInvoiceSettlement
+      summary: Delete a settlement record
+      operationId: delete_3
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceSettlementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/advances/{factoringAdvanceId}:
+    get:
+      tags:
+        - FactoringAdvance
+      summary: Get an advance record by ID
+      operationId: getById_4
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAdvanceDTO'
+    put:
+      tags:
+        - FactoringAdvance
+      summary: Update an advance record
+      operationId: update_4
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringAdvanceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAdvanceDTO'
+    delete:
+      tags:
+        - FactoringAdvance
+      summary: Delete an advance record
+      operationId: delete_4
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringAdvanceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/fees/{factoringFeeId}:
+    get:
+      tags:
+        - FactoringFee
+      summary: Get a fee configuration by ID
+      operationId: getById_5
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringFeeDTO'
+    put:
+      tags:
+        - FactoringFee
+      summary: Update a fee configuration
+      operationId: update_5
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringFeeDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringFeeDTO'
+    delete:
+      tags:
+        - FactoringFee
+      summary: Delete a fee configuration
+      operationId: delete_5
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringFeeId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements/{factoringAgreementId}/debtors/{factoringDebtorId}:
+    get:
+      tags:
+        - FactoringDebtor
+      summary: Get a debtor record by ID
+      operationId: getById_6
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringDebtorId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringDebtorDTO'
+    put:
+      tags:
+        - FactoringDebtor
+      summary: Update a debtor record
+      operationId: update_6
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringDebtorId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringDebtorDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringDebtorDTO'
+    delete:
+      tags:
+        - FactoringDebtor
+      summary: Delete a debtor record
+      operationId: delete_6
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringDebtorId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/factoring-agreements:
+    get:
+      tags:
+        - FactoringAgreement
+      summary: List or search factoring agreements
+      operationId: findAll
+      parameters:
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.contractId
+          in: query
+          description: Exact filter for contract id
+          required: false
+          schema:
+            type: string
+        - name: filters.customerId
+          in: query
+          description: Exact filter for customer id
+          required: false
+          schema:
+            type: string
+        - name: filters.agreementStatus
+          in: query
+          description: Exact filter for agreement status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ACTIVE
+              - CLOSED
+              - SUSPENDED
+              - TERMINATED
+        - name: filters.startDate
+          in: query
+          description: Exact filter for start date
+          required: false
+          schema:
+            type: string
+        - name: filters.endDate
+          in: query
+          description: Exact filter for end date
+          required: false
+          schema:
+            type: string
+        - name: filters.creditLimit
+          in: query
+          description: Exact filter for credit limit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].from
+          in: query
+          description: Filter credit limit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[creditLimit].to
+          in: query
+          description: Filter credit limit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.recourse
+          in: query
+          description: Exact filter for recourse
+          required: false
+          schema:
+            type: boolean
+        - name: filters.advanceRate
+          in: query
+          description: Exact filter for advance rate
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceRate].from
+          in: query
+          description: Filter advance rate from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceRate].to
+          in: query
+          description: Filter advance rate to value
+          required: false
+          schema:
+            type: string
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringAgreementDTO'
+    post:
+      tags:
+        - FactoringAgreement
+      summary: Create a new factoring agreement
+      operationId: create
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringAgreementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAgreementDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices:
+    get:
+      tags:
+        - FactoringInvoice
+      summary: List or search invoices under a factoring agreement
+      operationId: findAll_1
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringAgreementId
+          in: query
+          description: Exact filter for factoring agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.factoringDebtorId
+          in: query
+          description: Exact filter for factoring debtor id
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceNumber
+          in: query
+          description: Exact filter for invoice number
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceDate
+          in: query
+          description: Exact filter for invoice date
+          required: false
+          schema:
+            type: string
+        - name: filters.dueDate
+          in: query
+          description: Exact filter for due date
+          required: false
+          schema:
+            type: string
+        - name: filters.invoiceAmount
+          in: query
+          description: Exact filter for invoice amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[invoiceAmount].from
+          in: query
+          description: Filter invoice amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[invoiceAmount].to
+          in: query
+          description: Filter invoice amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.assignedAmount
+          in: query
+          description: Exact filter for assigned amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[assignedAmount].from
+          in: query
+          description: Filter assigned amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[assignedAmount].to
+          in: query
+          description: Filter assigned amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.currencyCode
+          in: query
+          description: Exact filter for currency code
+          required: false
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+              - GBP
+              - CHF
+        - name: filters.invoiceStatus
+          in: query
+          description: Exact filter for invoice status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASSIGNED
+              - PAID
+              - CLOSED
+              - DEFAULT
+              - DISPUTED
+              - CANCELLED
+        - name: filters.isAcceptedByDebtor
+          in: query
+          description: Exact filter for is accepted by debtor
+          required: false
+          schema:
+            type: boolean
+        - name: filters.acceptanceDate
+          in: query
+          description: Exact filter for acceptance date
+          required: false
+          schema:
+            type: string
+        - name: filters.documentReference
+          in: query
+          description: Exact filter for document reference
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringInvoiceDTO'
+    post:
+      tags:
+        - FactoringInvoice
+      summary: Create a new factoring invoice
+      operationId: create_1
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/status-history:
+    get:
+      tags:
+        - FactoringInvoiceStatusHistory
+      summary: List or search invoice status history entries
+      operationId: findAll_2
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringInvoiceId
+          in: query
+          description: Exact filter for factoring invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.oldStatus
+          in: query
+          description: Exact filter for old status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASSIGNED
+              - PAID
+              - CLOSED
+              - DEFAULT
+              - DISPUTED
+              - CANCELLED
+        - name: filters.newStatus
+          in: query
+          description: Exact filter for new status
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASSIGNED
+              - PAID
+              - CLOSED
+              - DEFAULT
+              - DISPUTED
+              - CANCELLED
+        - name: filters.changedAt
+          in: query
+          description: Exact filter for changed at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].from
+          in: query
+          description: Filter changed at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].to
+          in: query
+          description: Filter changed at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.changedBy
+          in: query
+          description: Exact filter for changed by
+          required: false
+          schema:
+            type: string
+        - name: filters.reason
+          in: query
+          description: Exact filter for reason
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringInvoiceStatusHistoryDTO'
+    post:
+      tags:
+        - FactoringInvoiceStatusHistory
+      summary: Create a new invoice status history entry
+      operationId: create_2
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/settlements:
+    get:
+      tags:
+        - FactoringInvoiceSettlement
+      summary: List or search settlements for a factoring invoice
+      operationId: findAll_3
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringInvoiceId
+          in: query
+          description: Exact filter for factoring invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.settlementDate
+          in: query
+          description: Exact filter for settlement date
+          required: false
+          schema:
+            type: string
+        - name: filters.settlementAmount
+          in: query
+          description: Exact filter for settlement amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[settlementAmount].from
+          in: query
+          description: Filter settlement amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[settlementAmount].to
+          in: query
+          description: Filter settlement amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.feesDeducted
+          in: query
+          description: Exact filter for fees deducted
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feesDeducted].from
+          in: query
+          description: Filter fees deducted from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feesDeducted].to
+          in: query
+          description: Filter fees deducted to value
+          required: false
+          schema:
+            type: string
+        - name: filters.netToClient
+          in: query
+          description: Exact filter for net to client
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[netToClient].from
+          in: query
+          description: Filter net to client from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[netToClient].to
+          in: query
+          description: Filter net to client to value
+          required: false
+          schema:
+            type: string
+        - name: filters.isClosed
+          in: query
+          description: Exact filter for is closed
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringInvoiceSettlementDTO'
+    post:
+      tags:
+        - FactoringInvoiceSettlement
+      summary: Create a new settlement record
+      operationId: create_3
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/advances:
+    get:
+      tags:
+        - FactoringAdvance
+      summary: List or search advances for a factoring invoice
+      operationId: findAll_4
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringInvoiceId
+          in: query
+          description: Exact filter for factoring invoice id
+          required: false
+          schema:
+            type: string
+        - name: filters.transactionId
+          in: query
+          description: Exact filter for transaction id
+          required: false
+          schema:
+            type: string
+        - name: filters.advanceAmount
+          in: query
+          description: Exact filter for advance amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceAmount].from
+          in: query
+          description: Filter advance amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[advanceAmount].to
+          in: query
+          description: Filter advance amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.advanceDate
+          in: query
+          description: Exact filter for advance date
+          required: false
+          schema:
+            type: string
+        - name: filters.isFinalAdvance
+          in: query
+          description: Exact filter for is final advance
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringAdvanceDTO'
+    post:
+      tags:
+        - FactoringAdvance
+      summary: Create a new advance record
+      operationId: create_4
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: factoringInvoiceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringAdvanceDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringAdvanceDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/fees:
+    get:
+      tags:
+        - FactoringFee
+      summary: List or search fees for a factoring agreement
+      operationId: findAll_5
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringAgreementId
+          in: query
+          description: Exact filter for factoring agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.feeType
+          in: query
+          description: Exact filter for fee type
+          required: false
+          schema:
+            type: string
+            enum:
+              - DISCOUNT_FEE
+              - ADMIN_FEE
+              - COLLECTION_FEE
+              - SERVICE_FEE
+              - LATE_FEE
+        - name: filters.feeRate
+          in: query
+          description: Exact filter for fee rate
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feeRate].from
+          in: query
+          description: Filter fee rate from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[feeRate].to
+          in: query
+          description: Filter fee rate to value
+          required: false
+          schema:
+            type: string
+        - name: filters.minFee
+          in: query
+          description: Exact filter for min fee
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minFee].from
+          in: query
+          description: Filter min fee from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[minFee].to
+          in: query
+          description: Filter min fee to value
+          required: false
+          schema:
+            type: string
+        - name: filters.maxFee
+          in: query
+          description: Exact filter for max fee
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[maxFee].from
+          in: query
+          description: Filter max fee from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[maxFee].to
+          in: query
+          description: Filter max fee to value
+          required: false
+          schema:
+            type: string
+        - name: filters.isActive
+          in: query
+          description: Exact filter for is active
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringFeeDTO'
+    post:
+      tags:
+        - FactoringFee
+      summary: Create a new fee configuration
+      operationId: create_5
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringFeeDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringFeeDTO'
+  /api/v1/factoring-agreements/{factoringAgreementId}/debtors:
+    get:
+      tags:
+        - FactoringDebtor
+      summary: List or search debtors for a factoring agreement
+      operationId: findAll_6
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.factoringAgreementId
+          in: query
+          description: Exact filter for factoring agreement id
+          required: false
+          schema:
+            type: string
+        - name: filters.debtorCustomerId
+          in: query
+          description: Exact filter for debtor customer id
+          required: false
+          schema:
+            type: string
+        - name: filters.debtorName
+          in: query
+          description: Exact filter for debtor name
+          required: false
+          schema:
+            type: string
+        - name: filters.debtorCreditLimit
+          in: query
+          description: Exact filter for debtor credit limit
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[debtorCreditLimit].from
+          in: query
+          description: Filter debtor credit limit from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[debtorCreditLimit].to
+          in: query
+          description: Filter debtor credit limit to value
+          required: false
+          schema:
+            type: string
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseFactoringDebtorDTO'
+    post:
+      tags:
+        - FactoringDebtor
+      summary: Create a new debtor record
+      operationId: create_6
+      parameters:
+        - name: factoringAgreementId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoringDebtorDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FactoringDebtorDTO'
+components:
+  schemas:
+    FactoringAgreementDTO:
+      required:
+        - agreementStatus
+        - contractId
+        - customerId
+        - recourse
+        - startDate
+      type: object
+      properties:
+        factoringAgreementId:
+          type: string
+          format: uuid
+          readOnly: true
+        contractId:
+          type: string
+          format: uuid
+        customerId:
+          type: string
+          format: uuid
+        agreementStatus:
+          type: string
+          enum:
+            - ACTIVE
+            - CLOSED
+            - SUSPENDED
+            - TERMINATED
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        creditLimit:
+          type: number
+        recourse:
+          type: boolean
+        advanceRate:
+          type: number
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringInvoiceDTO:
+      required:
+        - currencyCode
+        - dueDate
+        - factoringAgreementId
+        - invoiceAmount
+        - invoiceDate
+        - invoiceNumber
+        - invoiceStatus
+      type: object
+      properties:
+        factoringInvoiceId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringAgreementId:
+          type: string
+          format: uuid
+        factoringDebtorId:
+          type: string
+          format: uuid
+        invoiceNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+        invoiceDate:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date
+        invoiceAmount:
+          type: number
+        assignedAmount:
+          type: number
+        currencyCode:
+          type: string
+          enum:
+            - EUR
+            - USD
+            - GBP
+            - CHF
+        invoiceStatus:
+          type: string
+          enum:
+            - ASSIGNED
+            - PAID
+            - CLOSED
+            - DEFAULT
+            - DISPUTED
+            - CANCELLED
+        isAcceptedByDebtor:
+          type: boolean
+        acceptanceDate:
+          type: string
+          format: date
+        documentReference:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringInvoiceStatusHistoryDTO:
+      type: object
+      properties:
+        factoringInvoiceStatusHistoryId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringInvoiceId:
+          type: string
+          format: uuid
+        oldStatus:
+          type: string
+          enum:
+            - ASSIGNED
+            - PAID
+            - CLOSED
+            - DEFAULT
+            - DISPUTED
+            - CANCELLED
+        newStatus:
+          type: string
+          enum:
+            - ASSIGNED
+            - PAID
+            - CLOSED
+            - DEFAULT
+            - DISPUTED
+            - CANCELLED
+        changedAt:
+          type: string
+          format: date-time
+        changedBy:
+          type: string
+        reason:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringInvoiceSettlementDTO:
+      required:
+        - factoringInvoiceId
+        - isClosed
+        - settlementAmount
+        - settlementDate
+        - transactionId
+      type: object
+      properties:
+        factoringInvoiceSettlementId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringInvoiceId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        settlementDate:
+          type: string
+          format: date
+        settlementAmount:
+          type: number
+        feesDeducted:
+          type: number
+        netToClient:
+          type: number
+        isClosed:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringAdvanceDTO:
+      required:
+        - advanceAmount
+        - advanceDate
+        - factoringInvoiceId
+        - isFinalAdvance
+        - transactionId
+      type: object
+      properties:
+        factoringAdvanceId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringInvoiceId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+        advanceAmount:
+          type: number
+        advanceDate:
+          type: string
+          format: date
+        isFinalAdvance:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringFeeDTO:
+      required:
+        - factoringAgreementId
+        - feeRate
+        - feeType
+        - isActive
+      type: object
+      properties:
+        factoringFeeId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringAgreementId:
+          type: string
+          format: uuid
+        feeType:
+          type: string
+          enum:
+            - DISCOUNT_FEE
+            - ADMIN_FEE
+            - COLLECTION_FEE
+            - SERVICE_FEE
+            - LATE_FEE
+        feeRate:
+          type: number
+        minFee:
+          type: number
+        maxFee:
+          type: number
+        isActive:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    FactoringDebtorDTO:
+      required:
+        - debtorCustomerId
+        - debtorName
+        - factoringAgreementId
+      type: object
+      properties:
+        factoringDebtorId:
+          type: string
+          format: uuid
+          readOnly: true
+        factoringAgreementId:
+          type: string
+          format: uuid
+        debtorCustomerId:
+          type: string
+          format: uuid
+        debtorName:
+          maxLength: 255
+          minLength: 1
+          type: string
+        debtorCreditLimit:
+          type: number
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PaginationResponseFactoringAgreementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringAgreementDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringInvoiceDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringInvoiceDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringInvoiceStatusHistoryDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringInvoiceStatusHistoryDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringInvoiceSettlementDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringInvoiceSettlementDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringAdvanceDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringAdvanceDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringFeeDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringFeeDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseFactoringDebtorDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/FactoringDebtorDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
