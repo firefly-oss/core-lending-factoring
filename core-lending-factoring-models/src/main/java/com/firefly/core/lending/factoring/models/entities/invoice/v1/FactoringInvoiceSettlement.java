@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,13 +22,13 @@ public class FactoringInvoiceSettlement {
 
     @Id
     @Column("factoring_invoice_settlement_id")
-    private Long factoringInvoiceSettlementId;
+    private UUID factoringInvoiceSettlementId;
 
     @Column("factoring_invoice_id")
-    private Long factoringInvoiceId; // FK to FactoringInvoice
+    private UUID factoringInvoiceId; // FK to FactoringInvoice
 
     @Column("transaction_id")
-    private Long transactionId;      // Payment from debtor (external ref)
+    private UUID transactionId;      // Payment from debtor (external ref)
 
     @Column("settlement_date")
     private LocalDate settlementDate;

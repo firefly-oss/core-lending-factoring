@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,13 +22,13 @@ public class FactoringAdvance {
 
     @Id
     @Column("factoring_advance_id")
-    private Long factoringAdvanceId;
+    private UUID factoringAdvanceId;
 
     @Column("factoring_invoice_id")
-    private Long factoringInvoiceId; // FK to FactoringInvoice
+    private UUID factoringInvoiceId; // FK to FactoringInvoice
 
     @Column("transaction_id")
-    private Long transactionId;      // External reference for the payment
+    private UUID transactionId;      // External reference for the payment
 
     @Column("advance_amount")
     private BigDecimal advanceAmount;

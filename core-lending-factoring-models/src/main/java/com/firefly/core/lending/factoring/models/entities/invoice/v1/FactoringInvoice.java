@@ -13,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -23,13 +24,13 @@ public class FactoringInvoice {
 
     @Id
     @Column("factoring_invoice_id")
-    private Long factoringInvoiceId;
+    private UUID factoringInvoiceId;
 
     @Column("factoring_agreement_id")
-    private Long factoringAgreementId; // FK to FactoringAgreement
+    private UUID factoringAgreementId; // FK to FactoringAgreement
 
     @Column("factoring_debtor_id")
-    private Long factoringDebtorId;    // Optional FK to FactoringDebtor
+    private UUID factoringDebtorId;    // Optional FK to FactoringDebtor
 
     @Column("invoice_number")
     private String invoiceNumber;
@@ -59,7 +60,7 @@ public class FactoringInvoice {
     private LocalDate acceptanceDate;
 
     @Column("document_reference")
-    private Long documentReference;
+    private UUID documentReference;
 
     @Column("created_at")
     private LocalDateTime createdAt;

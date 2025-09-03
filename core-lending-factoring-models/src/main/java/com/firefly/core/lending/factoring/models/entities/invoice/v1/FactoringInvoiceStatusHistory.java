@@ -10,6 +10,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,10 +21,10 @@ public class FactoringInvoiceStatusHistory {
 
     @Id
     @Column("factoring_invoice_status_history_id")
-    private Long factoringInvoiceStatusHistoryId;
+    private UUID factoringInvoiceStatusHistoryId;
 
     @Column("factoring_invoice_id")
-    private Long factoringInvoiceId; // FK to FactoringInvoice
+    private UUID factoringInvoiceId; // FK to FactoringInvoice
 
     @Column("old_status")
     private InvoiceStatusEnum oldStatus;

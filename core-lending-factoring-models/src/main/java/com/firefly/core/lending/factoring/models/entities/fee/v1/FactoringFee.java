@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class FactoringFee {
 
     @Id
     @Column("factoring_fee_id")
-    private Long factoringFeeId;
+    private UUID factoringFeeId;
 
     @Column("factoring_agreement_id")
-    private Long factoringAgreementId; // FK to FactoringAgreement
+    private UUID factoringAgreementId; // FK to FactoringAgreement
 
     @Column("fee_type")
     private FeeTypeEnum feeType;

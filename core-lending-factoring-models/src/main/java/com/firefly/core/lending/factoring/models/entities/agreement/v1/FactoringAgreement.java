@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -22,13 +23,13 @@ public class FactoringAgreement {
 
     @Id
     @Column("factoring_agreement_id")
-    private Long factoringAgreementId;
+    private UUID factoringAgreementId;
 
     @Column("contract_id")
-    private Long contractId;      // External reference
+    private UUID contractId;      // External reference
 
     @Column("customer_id")
-    private Long customerId;      // The factoring client (no direct FK)
+    private UUID customerId;      // The factoring client (no direct FK)
 
     @Column("agreement_status")
     private AgreementStatusEnum agreementStatus;
