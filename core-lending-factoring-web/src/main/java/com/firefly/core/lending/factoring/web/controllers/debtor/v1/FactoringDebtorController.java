@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.web.controllers.debtor.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.core.services.debtor.v1.FactoringDebtorService;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/factoring-agreements/{factoringAgreementId}/debtors")
@@ -22,7 +23,7 @@ public class FactoringDebtorController {
     @GetMapping
     @Operation(summary = "List or search debtors for a factoring agreement")
     public Mono<ResponseEntity<PaginationResponse<FactoringDebtorDTO>>> findAll(
-            @PathVariable Long factoringAgreementId,
+            @PathVariable UUID factoringAgreementId,
             @ModelAttribute FilterRequest<FactoringDebtorDTO> filterRequest) {
 
         return service.findAll(factoringAgreementId, filterRequest)
@@ -32,8 +33,8 @@ public class FactoringDebtorController {
     @PostMapping
     @Operation(summary = "Create a new debtor record")
     public Mono<ResponseEntity<FactoringDebtorDTO>> create(
-            @PathVariable Long factoringAgreementId,
-            @RequestBody FactoringDebtorDTO dto) {
+            @PathVariable UUID factoringAgreementId,
+            @Valid @RequestBody FactoringDebtorDTO dto) {
 
         return service.create(factoringAgreementId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +43,8 @@ public class FactoringDebtorController {
     @GetMapping("/{factoringDebtorId}")
     @Operation(summary = "Get a debtor record by ID")
     public Mono<ResponseEntity<FactoringDebtorDTO>> getById(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringDebtorId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringDebtorId) {
 
         return service.getById(factoringAgreementId, factoringDebtorId)
                 .map(ResponseEntity::ok);
@@ -52,9 +53,9 @@ public class FactoringDebtorController {
     @PutMapping("/{factoringDebtorId}")
     @Operation(summary = "Update a debtor record")
     public Mono<ResponseEntity<FactoringDebtorDTO>> update(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringDebtorId,
-            @RequestBody FactoringDebtorDTO dto) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringDebtorId,
+            @Valid @RequestBody FactoringDebtorDTO dto) {
 
         return service.update(factoringAgreementId, factoringDebtorId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +64,8 @@ public class FactoringDebtorController {
     @DeleteMapping("/{factoringDebtorId}")
     @Operation(summary = "Delete a debtor record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringDebtorId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringDebtorId) {
 
         return service.delete(factoringAgreementId, factoringDebtorId)
                 .thenReturn(ResponseEntity.noContent().build());

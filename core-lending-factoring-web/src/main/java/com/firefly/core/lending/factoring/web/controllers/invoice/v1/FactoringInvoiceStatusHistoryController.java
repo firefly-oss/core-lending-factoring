@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.web.controllers.invoice.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.core.services.invoice.v1.FactoringInvoiceStatusHistoryService;
@@ -22,8 +22,8 @@ public class FactoringInvoiceStatusHistoryController {
     @GetMapping
     @Operation(summary = "List or search invoice status history entries")
     public Mono<ResponseEntity<PaginationResponse<FactoringInvoiceStatusHistoryDTO>>> findAll(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
             @ModelAttribute FilterRequest<FactoringInvoiceStatusHistoryDTO> filterRequest) {
 
         return service.findAll(factoringAgreementId, factoringInvoiceId, filterRequest)
@@ -33,8 +33,8 @@ public class FactoringInvoiceStatusHistoryController {
     @PostMapping
     @Operation(summary = "Create a new invoice status history entry")
     public Mono<ResponseEntity<FactoringInvoiceStatusHistoryDTO>> create(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
             @RequestBody FactoringInvoiceStatusHistoryDTO dto) {
 
         return service.create(factoringAgreementId, factoringInvoiceId, dto)
@@ -44,9 +44,9 @@ public class FactoringInvoiceStatusHistoryController {
     @GetMapping("/{factoringInvoiceStatusHistoryId}")
     @Operation(summary = "Get an invoice status history entry by ID")
     public Mono<ResponseEntity<FactoringInvoiceStatusHistoryDTO>> getById(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringInvoiceStatusHistoryId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringInvoiceStatusHistoryId) {
 
         return service.getById(factoringAgreementId, factoringInvoiceId, factoringInvoiceStatusHistoryId)
                 .map(ResponseEntity::ok);
@@ -55,9 +55,9 @@ public class FactoringInvoiceStatusHistoryController {
     @PutMapping("/{factoringInvoiceStatusHistoryId}")
     @Operation(summary = "Update an invoice status history entry")
     public Mono<ResponseEntity<FactoringInvoiceStatusHistoryDTO>> update(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringInvoiceStatusHistoryId,
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringInvoiceStatusHistoryId,
             @RequestBody FactoringInvoiceStatusHistoryDTO dto) {
 
         return service.update(factoringAgreementId, factoringInvoiceId, factoringInvoiceStatusHistoryId, dto)
@@ -67,9 +67,9 @@ public class FactoringInvoiceStatusHistoryController {
     @DeleteMapping("/{factoringInvoiceStatusHistoryId}")
     @Operation(summary = "Delete an invoice status history entry")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringInvoiceStatusHistoryId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringInvoiceStatusHistoryId) {
 
         return service.delete(factoringAgreementId, factoringInvoiceId, factoringInvoiceStatusHistoryId)
                 .thenReturn(ResponseEntity.noContent().build());

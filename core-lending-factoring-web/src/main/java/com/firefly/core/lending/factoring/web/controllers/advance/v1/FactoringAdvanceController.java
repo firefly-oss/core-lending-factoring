@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.web.controllers.advance.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.core.services.advance.v1.FactoringAdvanceService;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/factoring-agreements/{factoringAgreementId}/invoices/{factoringInvoiceId}/advances")
@@ -22,8 +23,8 @@ public class FactoringAdvanceController {
     @GetMapping
     @Operation(summary = "List or search advances for a factoring invoice")
     public Mono<ResponseEntity<PaginationResponse<FactoringAdvanceDTO>>> findAll(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
             @ModelAttribute FilterRequest<FactoringAdvanceDTO> filterRequest) {
 
         return service.findAll(factoringAgreementId, factoringInvoiceId, filterRequest)
@@ -33,9 +34,9 @@ public class FactoringAdvanceController {
     @PostMapping
     @Operation(summary = "Create a new advance record")
     public Mono<ResponseEntity<FactoringAdvanceDTO>> create(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @RequestBody FactoringAdvanceDTO dto) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @Valid @RequestBody FactoringAdvanceDTO dto) {
 
         return service.create(factoringAgreementId, factoringInvoiceId, dto)
                 .map(ResponseEntity::ok);
@@ -44,9 +45,9 @@ public class FactoringAdvanceController {
     @GetMapping("/{factoringAdvanceId}")
     @Operation(summary = "Get an advance record by ID")
     public Mono<ResponseEntity<FactoringAdvanceDTO>> getById(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringAdvanceId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringAdvanceId) {
 
         return service.getById(factoringAgreementId, factoringInvoiceId, factoringAdvanceId)
                 .map(ResponseEntity::ok);
@@ -55,10 +56,10 @@ public class FactoringAdvanceController {
     @PutMapping("/{factoringAdvanceId}")
     @Operation(summary = "Update an advance record")
     public Mono<ResponseEntity<FactoringAdvanceDTO>> update(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringAdvanceId,
-            @RequestBody FactoringAdvanceDTO dto) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringAdvanceId,
+            @Valid @RequestBody FactoringAdvanceDTO dto) {
 
         return service.update(factoringAgreementId, factoringInvoiceId, factoringAdvanceId, dto)
                 .map(ResponseEntity::ok);
@@ -67,9 +68,9 @@ public class FactoringAdvanceController {
     @DeleteMapping("/{factoringAdvanceId}")
     @Operation(summary = "Delete an advance record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long factoringAgreementId,
-            @PathVariable Long factoringInvoiceId,
-            @PathVariable Long factoringAdvanceId) {
+            @PathVariable UUID factoringAgreementId,
+            @PathVariable UUID factoringInvoiceId,
+            @PathVariable UUID factoringAdvanceId) {
 
         return service.delete(factoringAgreementId, factoringInvoiceId, factoringAdvanceId)
                 .thenReturn(ResponseEntity.noContent().build());
