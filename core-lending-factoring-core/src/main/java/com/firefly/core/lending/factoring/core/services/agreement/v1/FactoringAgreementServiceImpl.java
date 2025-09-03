@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.agreement.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.filters.FilterUtils;
 import com.firefly.common.core.queries.PaginationResponse;
@@ -38,13 +38,13 @@ public class FactoringAgreementServiceImpl implements FactoringAgreementService 
     }
 
     @Override
-    public Mono<FactoringAgreementDTO> getById(Long factoringAgreementId) {
+    public Mono<FactoringAgreementDTO> getById(UUID factoringAgreementId) {
         return repository.findById(factoringAgreementId)
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<FactoringAgreementDTO> update(Long factoringAgreementId, FactoringAgreementDTO dto) {
+    public Mono<FactoringAgreementDTO> update(UUID factoringAgreementId, FactoringAgreementDTO dto) {
         return repository.findById(factoringAgreementId)
                 .flatMap(existing -> {
                     FactoringAgreement updatedEntity = mapper.toEntity(dto);
@@ -55,7 +55,7 @@ public class FactoringAgreementServiceImpl implements FactoringAgreementService 
     }
 
     @Override
-    public Mono<Void> delete(Long factoringAgreementId) {
+    public Mono<Void> delete(UUID factoringAgreementId) {
         return repository.deleteById(factoringAgreementId);
     }
 }

@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.invoice.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.invoice.v1.FactoringInvoiceDTO;
@@ -15,7 +15,7 @@ public interface FactoringInvoiceService {
      * @param filterRequest a FilterRequest object containing filter criteria and pagination settings for fetching invoices
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringInvoiceDTO objects
      */
-    Mono<PaginationResponse<FactoringInvoiceDTO>> findAll(Long factoringAgreementId,
+    Mono<PaginationResponse<FactoringInvoiceDTO>> findAll(UUID factoringAgreementId,
                                                           FilterRequest<FactoringInvoiceDTO> filterRequest);
 
     /**
@@ -25,7 +25,7 @@ public interface FactoringInvoiceService {
      * @param dto the FactoringInvoiceDTO object containing the details of the invoice to be created
      * @return a Mono emitting the created FactoringInvoiceDTO object upon successful creation
      */
-    Mono<FactoringInvoiceDTO> create(Long factoringAgreementId, FactoringInvoiceDTO dto);
+    Mono<FactoringInvoiceDTO> create(UUID factoringAgreementId, FactoringInvoiceDTO dto);
 
     /**
      * Retrieves a specific factoring invoice associated with the given factoring agreement
@@ -35,7 +35,7 @@ public interface FactoringInvoiceService {
      * @param factoringInvoiceId the unique identifier of the factoring invoice to retrieve
      * @return a Mono emitting the FactoringInvoiceDTO if found, or an empty Mono if not
      */
-    Mono<FactoringInvoiceDTO> getById(Long factoringAgreementId, Long factoringInvoiceId);
+    Mono<FactoringInvoiceDTO> getById(UUID factoringAgreementId, UUID factoringInvoiceId);
 
     /**
      * Updates an existing factoring invoice associated with a specific factoring agreement.
@@ -45,7 +45,7 @@ public interface FactoringInvoiceService {
      * @param dto the FactoringInvoiceDTO object containing the updated details of the factoring invoice
      * @return a Mono emitting the updated FactoringInvoiceDTO upon successful update
      */
-    Mono<FactoringInvoiceDTO> update(Long factoringAgreementId, Long factoringInvoiceId, FactoringInvoiceDTO dto);
+    Mono<FactoringInvoiceDTO> update(UUID factoringAgreementId, UUID factoringInvoiceId, FactoringInvoiceDTO dto);
 
     /**
      * Deletes a factoring invoice associated with the specified factoring agreement and
@@ -55,5 +55,5 @@ public interface FactoringInvoiceService {
      * @param factoringInvoiceId the unique identifier of the factoring invoice to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringInvoiceId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringInvoiceId);
 }

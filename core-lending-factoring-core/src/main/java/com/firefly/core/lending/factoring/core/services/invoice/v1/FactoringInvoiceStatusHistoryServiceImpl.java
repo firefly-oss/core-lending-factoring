@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.invoice.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.filters.FilterUtils;
 import com.firefly.common.core.queries.PaginationResponse;
@@ -23,7 +23,7 @@ public class FactoringInvoiceStatusHistoryServiceImpl implements FactoringInvoic
     private FactoringInvoiceStatusHistoryMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<FactoringInvoiceStatusHistoryDTO>> findAll(Long factoringAgreementId, Long factoringInvoiceId, FilterRequest<FactoringInvoiceStatusHistoryDTO> filterRequest) {
+    public Mono<PaginationResponse<FactoringInvoiceStatusHistoryDTO>> findAll(UUID factoringAgreementId, UUID factoringInvoiceId, FilterRequest<FactoringInvoiceStatusHistoryDTO> filterRequest) {
         filterRequest.getFilters().setFactoringInvoiceId(factoringInvoiceId);
         return FilterUtils.createFilter(
                 FactoringInvoiceStatusHistory.class,
@@ -32,7 +32,7 @@ public class FactoringInvoiceStatusHistoryServiceImpl implements FactoringInvoic
     }
 
     @Override
-    public Mono<FactoringInvoiceStatusHistoryDTO> create(Long factoringAgreementId, Long factoringInvoiceId, FactoringInvoiceStatusHistoryDTO dto) {
+    public Mono<FactoringInvoiceStatusHistoryDTO> create(UUID factoringAgreementId, UUID factoringInvoiceId, FactoringInvoiceStatusHistoryDTO dto) {
         FactoringInvoiceStatusHistory entity = mapper.toEntity(dto);
         entity.setFactoringInvoiceId(factoringInvoiceId);
         return repository.save(entity)
@@ -40,14 +40,14 @@ public class FactoringInvoiceStatusHistoryServiceImpl implements FactoringInvoic
     }
 
     @Override
-    public Mono<FactoringInvoiceStatusHistoryDTO> getById(Long factoringAgreementId, Long factoringInvoiceId, Long factoringInvoiceStatusHistoryId) {
+    public Mono<FactoringInvoiceStatusHistoryDTO> getById(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringInvoiceStatusHistoryId) {
         return repository.findById(factoringInvoiceStatusHistoryId)
                 .filter(entity -> entity.getFactoringInvoiceId().equals(factoringInvoiceId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<FactoringInvoiceStatusHistoryDTO> update(Long factoringAgreementId, Long factoringInvoiceId, Long factoringInvoiceStatusHistoryId, FactoringInvoiceStatusHistoryDTO dto) {
+    public Mono<FactoringInvoiceStatusHistoryDTO> update(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringInvoiceStatusHistoryId, FactoringInvoiceStatusHistoryDTO dto) {
         return repository.findById(factoringInvoiceStatusHistoryId)
                 .flatMap(existing -> {
                     if (!existing.getFactoringInvoiceId().equals(factoringInvoiceId)) {
@@ -62,7 +62,7 @@ public class FactoringInvoiceStatusHistoryServiceImpl implements FactoringInvoic
     }
 
     @Override
-    public Mono<Void> delete(Long factoringAgreementId, Long factoringInvoiceId, Long factoringInvoiceStatusHistoryId) {
+    public Mono<Void> delete(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringInvoiceStatusHistoryId) {
         return repository.findById(factoringInvoiceStatusHistoryId)
                 .filter(entity -> entity.getFactoringInvoiceId().equals(factoringInvoiceId))
                 .flatMap(repository::delete);

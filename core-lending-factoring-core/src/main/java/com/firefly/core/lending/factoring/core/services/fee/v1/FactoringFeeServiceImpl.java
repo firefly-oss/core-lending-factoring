@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.fee.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.filters.FilterUtils;
 import com.firefly.common.core.queries.PaginationResponse;
@@ -25,7 +25,7 @@ public class FactoringFeeServiceImpl implements FactoringFeeService {
     private FactoringFeeMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<FactoringFeeDTO>> findAll(Long factoringAgreementId, FilterRequest<FactoringFeeDTO> filterRequest) {
+    public Mono<PaginationResponse<FactoringFeeDTO>> findAll(UUID factoringAgreementId, FilterRequest<FactoringFeeDTO> filterRequest) {
         filterRequest.getFilters().setFactoringAgreementId(factoringAgreementId);
         return FilterUtils.createFilter(
                 FactoringFee.class,
@@ -34,7 +34,7 @@ public class FactoringFeeServiceImpl implements FactoringFeeService {
     }
 
     @Override
-    public Mono<FactoringFeeDTO> create(Long factoringAgreementId, FactoringFeeDTO dto) {
+    public Mono<FactoringFeeDTO> create(UUID factoringAgreementId, FactoringFeeDTO dto) {
         dto.setFactoringAgreementId(factoringAgreementId);
         FactoringFee entity = mapper.toEntity(dto);
         entity.setCreatedAt(LocalDateTime.now());
@@ -44,14 +44,14 @@ public class FactoringFeeServiceImpl implements FactoringFeeService {
     }
 
     @Override
-    public Mono<FactoringFeeDTO> getById(Long factoringAgreementId, Long factoringFeeId) {
+    public Mono<FactoringFeeDTO> getById(UUID factoringAgreementId, UUID factoringFeeId) {
         return repository.findById(factoringFeeId)
                 .filter(fee -> fee.getFactoringAgreementId().equals(factoringAgreementId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<FactoringFeeDTO> update(Long factoringAgreementId, Long factoringFeeId, FactoringFeeDTO dto) {
+    public Mono<FactoringFeeDTO> update(UUID factoringAgreementId, UUID factoringFeeId, FactoringFeeDTO dto) {
         return repository.findById(factoringFeeId)
                 .filter(fee -> fee.getFactoringAgreementId().equals(factoringAgreementId))
                 .flatMap(existingFee -> {
@@ -66,7 +66,7 @@ public class FactoringFeeServiceImpl implements FactoringFeeService {
     }
 
     @Override
-    public Mono<Void> delete(Long factoringAgreementId, Long factoringFeeId) {
+    public Mono<Void> delete(UUID factoringAgreementId, UUID factoringFeeId) {
         return repository.findById(factoringFeeId)
                 .filter(fee -> fee.getFactoringAgreementId().equals(factoringAgreementId))
                 .flatMap(repository::delete);

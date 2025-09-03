@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.advance.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.advance.v1.FactoringAdvanceDTO;
@@ -16,8 +16,8 @@ public interface FactoringAdvanceService {
      * @param filterRequest a FilterRequest object containing filter criteria and pagination settings for fetching advances
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringAdvanceDTO objects
      */
-    Mono<PaginationResponse<FactoringAdvanceDTO>> findAll(Long factoringAgreementId,
-                                                          Long factoringInvoiceId,
+    Mono<PaginationResponse<FactoringAdvanceDTO>> findAll(UUID factoringAgreementId,
+                                                          UUID factoringInvoiceId,
                                                           FilterRequest<FactoringAdvanceDTO> filterRequest);
 
     /**
@@ -28,7 +28,7 @@ public interface FactoringAdvanceService {
      * @param dto the data transfer object containing the details of the factoring advance to be created
      * @return a Mono emitting the created FactoringAdvanceDTO object upon successful creation
      */
-    Mono<FactoringAdvanceDTO> create(Long factoringAgreementId, Long factoringInvoiceId, FactoringAdvanceDTO dto);
+    Mono<FactoringAdvanceDTO> create(UUID factoringAgreementId, UUID factoringInvoiceId, FactoringAdvanceDTO dto);
 
     /**
      * Retrieves a specific factoring advance associated with the given factoring agreement, invoice, and advance identifiers.
@@ -38,7 +38,7 @@ public interface FactoringAdvanceService {
      * @param factoringAdvanceId the unique identifier of the factoring advance to be retrieved
      * @return a Mono emitting the FactoringAdvanceDTO if found, or an empty Mono if not
      */
-    Mono<FactoringAdvanceDTO> getById(Long factoringAgreementId, Long factoringInvoiceId, Long factoringAdvanceId);
+    Mono<FactoringAdvanceDTO> getById(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringAdvanceId);
 
     /**
      * Updates an existing factoring advance associated with a specific factoring agreement
@@ -50,9 +50,9 @@ public interface FactoringAdvanceService {
      * @param dto the FactoringAdvanceDTO object containing the updated details of the factoring advance
      * @return a Mono emitting the updated FactoringAdvanceDTO upon successful update
      */
-    Mono<FactoringAdvanceDTO> update(Long factoringAgreementId,
-                                     Long factoringInvoiceId,
-                                     Long factoringAdvanceId,
+    Mono<FactoringAdvanceDTO> update(UUID factoringAgreementId,
+                                     UUID factoringInvoiceId,
+                                     UUID factoringAdvanceId,
                                      FactoringAdvanceDTO dto);
 
     /**
@@ -63,5 +63,5 @@ public interface FactoringAdvanceService {
      * @param factoringAdvanceId the unique identifier of the factoring advance to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringInvoiceId, Long factoringAdvanceId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringAdvanceId);
 }

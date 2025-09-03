@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.invoice.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.invoice.v1.FactoringInvoiceStatusHistoryDTO;
@@ -16,8 +16,8 @@ public interface FactoringInvoiceStatusHistoryService {
      * @param filterRequest a FilterRequest object containing filter criteria and pagination settings for fetching status history records
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringInvoiceStatusHistoryDTO objects
      */
-    Mono<PaginationResponse<FactoringInvoiceStatusHistoryDTO>> findAll(Long factoringAgreementId,
-                                                                       Long factoringInvoiceId,
+    Mono<PaginationResponse<FactoringInvoiceStatusHistoryDTO>> findAll(UUID factoringAgreementId,
+                                                                       UUID factoringInvoiceId,
                                                                        FilterRequest<FactoringInvoiceStatusHistoryDTO> filterRequest);
 
     /**
@@ -29,8 +29,8 @@ public interface FactoringInvoiceStatusHistoryService {
      * @param dto the data transfer object containing the details of the status history to be created
      * @return a Mono emitting the created FactoringInvoiceStatusHistoryDTO object upon successful creation
      */
-    Mono<FactoringInvoiceStatusHistoryDTO> create(Long factoringAgreementId,
-                                                  Long factoringInvoiceId,
+    Mono<FactoringInvoiceStatusHistoryDTO> create(UUID factoringAgreementId,
+                                                  UUID factoringInvoiceId,
                                                   FactoringInvoiceStatusHistoryDTO dto);
 
     /**
@@ -45,9 +45,9 @@ public interface FactoringInvoiceStatusHistoryService {
      *                                         history record to retrieve
      * @return a Mono emitting the FactoringInvoiceStatusHistoryDTO if found, or an empty Mono if not
      */
-    Mono<FactoringInvoiceStatusHistoryDTO> getById(Long factoringAgreementId,
-                                                   Long factoringInvoiceId,
-                                                   Long factoringInvoiceStatusHistoryId);
+    Mono<FactoringInvoiceStatusHistoryDTO> getById(UUID factoringAgreementId,
+                                                   UUID factoringInvoiceId,
+                                                   UUID factoringInvoiceStatusHistoryId);
 
     /**
      * Updates an existing factoring invoice status history record associated with the specified identifiers.
@@ -58,9 +58,9 @@ public interface FactoringInvoiceStatusHistoryService {
      * @param dto a FactoringInvoiceStatusHistoryDTO object containing the updated details of the invoice status history
      * @return a Mono emitting the updated FactoringInvoiceStatusHistoryDTO upon successful update
      */
-    Mono<FactoringInvoiceStatusHistoryDTO> update(Long factoringAgreementId,
-                                                  Long factoringInvoiceId,
-                                                  Long factoringInvoiceStatusHistoryId,
+    Mono<FactoringInvoiceStatusHistoryDTO> update(UUID factoringAgreementId,
+                                                  UUID factoringInvoiceId,
+                                                  UUID factoringInvoiceStatusHistoryId,
                                                   FactoringInvoiceStatusHistoryDTO dto);
 
     /**
@@ -72,5 +72,5 @@ public interface FactoringInvoiceStatusHistoryService {
      * @param factoringInvoiceStatusHistoryId the unique identifier of the factoring invoice status history to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringInvoiceId, Long factoringInvoiceStatusHistoryId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringInvoiceStatusHistoryId);
 }

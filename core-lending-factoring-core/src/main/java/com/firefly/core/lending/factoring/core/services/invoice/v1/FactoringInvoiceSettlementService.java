@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.invoice.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.invoice.v1.FactoringInvoiceSettlementDTO;
@@ -16,8 +16,8 @@ public interface FactoringInvoiceSettlementService {
      * @param filterRequest a FilterRequest object containing filter criteria and pagination settings for fetching settlements
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringInvoiceSettlementDTO objects
      */
-    Mono<PaginationResponse<FactoringInvoiceSettlementDTO>> findAll(Long factoringAgreementId,
-                                                                    Long factoringInvoiceId,
+    Mono<PaginationResponse<FactoringInvoiceSettlementDTO>> findAll(UUID factoringAgreementId,
+                                                                    UUID factoringInvoiceId,
                                                                     FilterRequest<FactoringInvoiceSettlementDTO> filterRequest);
 
     /**
@@ -28,8 +28,8 @@ public interface FactoringInvoiceSettlementService {
      * @param dto the data transfer object containing the details of the factoring invoice settlement to be created
      * @return a Mono emitting the created FactoringInvoiceSettlementDTO object upon successful creation
      */
-    Mono<FactoringInvoiceSettlementDTO> create(Long factoringAgreementId,
-                                               Long factoringInvoiceId,
+    Mono<FactoringInvoiceSettlementDTO> create(UUID factoringAgreementId,
+                                               UUID factoringInvoiceId,
                                                FactoringInvoiceSettlementDTO dto);
 
     /**
@@ -40,9 +40,9 @@ public interface FactoringInvoiceSettlementService {
      * @param factoringInvoiceSettlementId the unique identifier of the factoring invoice settlement to retrieve
      * @return a Mono emitting the FactoringInvoiceSettlementDTO if found, or an empty Mono if not
      */
-    Mono<FactoringInvoiceSettlementDTO> getById(Long factoringAgreementId,
-                                                Long factoringInvoiceId,
-                                                Long factoringInvoiceSettlementId);
+    Mono<FactoringInvoiceSettlementDTO> getById(UUID factoringAgreementId,
+                                                UUID factoringInvoiceId,
+                                                UUID factoringInvoiceSettlementId);
 
     /**
      * Updates an existing factoring invoice settlement associated with a specific factoring agreement and factoring invoice.
@@ -53,9 +53,9 @@ public interface FactoringInvoiceSettlementService {
      * @param dto the FactoringInvoiceSettlementDTO containing the updated details of the settlement
      * @return a Mono emitting the updated FactoringInvoiceSettlementDTO upon successful update
      */
-    Mono<FactoringInvoiceSettlementDTO> update(Long factoringAgreementId,
-                                               Long factoringInvoiceId,
-                                               Long factoringInvoiceSettlementId,
+    Mono<FactoringInvoiceSettlementDTO> update(UUID factoringAgreementId,
+                                               UUID factoringInvoiceId,
+                                               UUID factoringInvoiceSettlementId,
                                                FactoringInvoiceSettlementDTO dto);
 
     /**
@@ -67,5 +67,5 @@ public interface FactoringInvoiceSettlementService {
      * @param factoringInvoiceSettlementId the unique identifier of the factoring invoice settlement to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringInvoiceId, Long factoringInvoiceSettlementId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringInvoiceId, UUID factoringInvoiceSettlementId);
 }

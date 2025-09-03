@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.fee.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.fee.v1.FactoringFeeDTO;
@@ -15,7 +15,7 @@ public interface FactoringFeeService {
      * @param filterRequest a FilterRequest object containing filter criteria and pagination settings for fetching fees
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringFeeDTO objects
      */
-    Mono<PaginationResponse<FactoringFeeDTO>> findAll(Long factoringAgreementId,
+    Mono<PaginationResponse<FactoringFeeDTO>> findAll(UUID factoringAgreementId,
                                                       FilterRequest<FactoringFeeDTO> filterRequest);
 
     /**
@@ -25,7 +25,7 @@ public interface FactoringFeeService {
      * @param dto the data transfer object containing the details of the factoring fee to be created
      * @return a Mono emitting the created FactoringFeeDTO object upon successful creation
      */
-    Mono<FactoringFeeDTO> create(Long factoringAgreementId, FactoringFeeDTO dto);
+    Mono<FactoringFeeDTO> create(UUID factoringAgreementId, FactoringFeeDTO dto);
 
     /**
      * Retrieves a specific factoring fee associated with the given factoring agreement and fee identifiers.
@@ -34,7 +34,7 @@ public interface FactoringFeeService {
      * @param factoringFeeId the unique identifier of the factoring fee to retrieve
      * @return a Mono emitting the FactoringFeeDTO if found, or an empty Mono if not
      */
-    Mono<FactoringFeeDTO> getById(Long factoringAgreementId, Long factoringFeeId);
+    Mono<FactoringFeeDTO> getById(UUID factoringAgreementId, UUID factoringFeeId);
 
     /**
      * Updates an existing factoring fee associated with a specific factoring agreement.
@@ -44,7 +44,7 @@ public interface FactoringFeeService {
      * @param dto the FactoringFeeDTO object containing the updated details of the factoring fee
      * @return a Mono emitting the updated FactoringFeeDTO upon successful update
      */
-    Mono<FactoringFeeDTO> update(Long factoringAgreementId, Long factoringFeeId, FactoringFeeDTO dto);
+    Mono<FactoringFeeDTO> update(UUID factoringAgreementId, UUID factoringFeeId, FactoringFeeDTO dto);
 
     /**
      * Deletes a factoring fee associated with the specified factoring agreement and factoring fee identifiers.
@@ -53,5 +53,5 @@ public interface FactoringFeeService {
      * @param factoringFeeId the unique identifier of the factoring fee to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringFeeId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringFeeId);
 }

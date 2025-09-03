@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.agreement.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.agreement.v1.FactoringAgreementDTO;
@@ -29,7 +29,7 @@ public interface FactoringAgreementService {
      * @param factoringAgreementId the unique identifier of the factoring agreement to retrieve
      * @return a Mono emitting the FactoringAgreementDTO if found, or an empty Mono if not
      */
-    Mono<FactoringAgreementDTO> getById(Long factoringAgreementId);
+    Mono<FactoringAgreementDTO> getById(UUID factoringAgreementId);
 
     /**
      * Updates an existing factoring agreement with the provided details.
@@ -38,7 +38,7 @@ public interface FactoringAgreementService {
      * @param dto the data transfer object containing updated details of the factoring agreement
      * @return a Mono emitting the updated factoring agreement DTO upon successful update
      */
-    Mono<FactoringAgreementDTO> update(Long factoringAgreementId, FactoringAgreementDTO dto);
+    Mono<FactoringAgreementDTO> update(UUID factoringAgreementId, FactoringAgreementDTO dto);
 
     /**
      * Deletes a factoring agreement by its unique identifier.
@@ -46,6 +46,6 @@ public interface FactoringAgreementService {
      * @param factoringAgreementId the unique identifier of the factoring agreement to delete
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId);
+    Mono<Void> delete(UUID factoringAgreementId);
 
 }

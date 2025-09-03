@@ -1,5 +1,5 @@
 package com.firefly.core.lending.factoring.core.services.debtor.v1;
-
+import java.util.UUID;
 import com.firefly.common.core.filters.FilterRequest;
 import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.factoring.interfaces.dtos.debtor.v1.FactoringDebtorDTO;
@@ -14,7 +14,7 @@ public interface FactoringDebtorService {
      * @param filterRequest a FilterRequest object that contains filter criteria and pagination settings for fetching debtors
      * @return a Mono emitting a PaginationResponse containing a list of matching FactoringDebtorDTO objects
      */
-    Mono<PaginationResponse<FactoringDebtorDTO>> findAll(Long factoringAgreementId,
+    Mono<PaginationResponse<FactoringDebtorDTO>> findAll(UUID factoringAgreementId,
                                                          FilterRequest<FactoringDebtorDTO> filterRequest);
 
     /**
@@ -24,7 +24,7 @@ public interface FactoringDebtorService {
      * @param dto the data transfer object containing the details of the factoring debtor to be created
      * @return a Mono emitting the created FactoringDebtorDTO object upon successful creation
      */
-    Mono<FactoringDebtorDTO> create(Long factoringAgreementId, FactoringDebtorDTO dto);
+    Mono<FactoringDebtorDTO> create(UUID factoringAgreementId, FactoringDebtorDTO dto);
 
     /**
      * Retrieves a FactoringDebtorDTO by its unique identifier within a specific factoring agreement.
@@ -33,7 +33,7 @@ public interface FactoringDebtorService {
      * @param factoringDebtorId the unique identifier of the factoring debtor to retrieve
      * @return a Mono emitting the FactoringDebtorDTO if found, or an empty Mono if not
      */
-    Mono<FactoringDebtorDTO> getById(Long factoringAgreementId, Long factoringDebtorId);
+    Mono<FactoringDebtorDTO> getById(UUID factoringAgreementId, UUID factoringDebtorId);
 
     /**
      * Updates an existing factoring debtor record based on the provided identifiers and data transfer object.
@@ -43,7 +43,7 @@ public interface FactoringDebtorService {
      * @param dto the FactoringDebtorDTO object containing the updated details of the factoring debtor
      * @return a Mono emitting the updated FactoringDebtorDTO upon successful update
      */
-    Mono<FactoringDebtorDTO> update(Long factoringAgreementId, Long factoringDebtorId, FactoringDebtorDTO dto);
+    Mono<FactoringDebtorDTO> update(UUID factoringAgreementId, UUID factoringDebtorId, FactoringDebtorDTO dto);
 
     /**
      * Deletes a factoring debtor entity associated with the specified factoring agreement
@@ -53,5 +53,5 @@ public interface FactoringDebtorService {
      * @param factoringDebtorId the unique identifier of the factoring debtor to be deleted
      * @return a {@code Mono<Void>} signaling the completion of the delete operation
      */
-    Mono<Void> delete(Long factoringAgreementId, Long factoringDebtorId);
+    Mono<Void> delete(UUID factoringAgreementId, UUID factoringDebtorId);
 }
