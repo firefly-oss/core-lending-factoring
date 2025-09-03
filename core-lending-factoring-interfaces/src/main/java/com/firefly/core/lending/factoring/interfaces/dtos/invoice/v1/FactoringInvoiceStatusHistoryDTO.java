@@ -9,17 +9,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FactoringInvoiceStatusHistoryDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long factoringInvoiceStatusHistoryId;
+    private UUID factoringInvoiceStatusHistoryId;
 
     @FilterableId
-    private Long factoringInvoiceId;    // Ties to FactoringInvoice
+    private UUID factoringInvoiceId;    // Ties to FactoringInvoice
 
     private InvoiceStatusEnum oldStatus;
     private InvoiceStatusEnum newStatus;

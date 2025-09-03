@@ -1,5 +1,8 @@
 package com.firefly.core.lending.factoring.interfaces.dtos.invoice.v1;
 
+import com.firefly.annotations.ValidAmount;
+import com.firefly.annotations.ValidCurrencyCode;
+import com.firefly.annotations.ValidDate;
 import com.firefly.core.lending.factoring.interfaces.enums.invoice.v1.CurrencyCodeEnum;
 import com.firefly.core.lending.factoring.interfaces.enums.invoice.v1.InvoiceStatusEnum;
 import com.firefly.core.utils.annotations.FilterableId;
@@ -9,36 +12,61 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class FactoringInvoiceDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long factoringInvoiceId;
+    private UUID factoringInvoiceId;
 
     @FilterableId
-    private Long factoringAgreementId;     // Ties to FactoringAgreement
+    @NotNull(message = "Factoring agreement ID is required")
+    private UUID factoringAgreementId;     // Ties to FactoringAgreement
 
     @FilterableId
-    private Long factoringDebtorId;        // Optional link to FactoringDebtor
+    private UUID factoringDebtorId;        // Optional link to FactoringDebtor
 
+    @NotBlank(message = "Invoice number is required")
+    @Size(min = 1, max = 100, message = "Invoice number must be between 1 and 100 characters")
     private String invoiceNumber;
+
+    @NotNull(message = "Invoice date is required")
+    @ValidDate
     private LocalDate invoiceDate;
+
+    @NotNull(message = "Due date is required")
+    @ValidDate
     private LocalDate dueDate;
+
+    @NotNull(message = "Invoice amount is required")
+    @ValidAmount(message = "Invoice amount must be a valid positive amount")
     private BigDecimal invoiceAmount;
+
+    @ValidAmount(message = "Assigned amount must be a valid positive amount")
     private BigDecimal assignedAmount;
+
+    @NotNull(message = "Currency code is required")
+    @ValidCurrencyCode
     private CurrencyCodeEnum currencyCode;
+
+    @NotNull(message = "Invoice status is required")
     private InvoiceStatusEnum invoiceStatus;
+
     private Boolean isAcceptedByDebtor;
+
+    @ValidDate
     private LocalDate acceptanceDate;
 
     @FilterableId
-    private Long documentReference;
+    private UUID documentReference;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
